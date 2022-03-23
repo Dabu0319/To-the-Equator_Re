@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayerShadow
+  - Box
+  - BoxShadow
   layers:
   - Default
   - TransparentFX
@@ -19,8 +21,8 @@ TagManager:
   - Player
   - PlayerShadow
   - 
-  - PlayerColl
-  - PlayerShadowColl
+  - Coll
+  - ShadowColl
   - 
   - 
   - 

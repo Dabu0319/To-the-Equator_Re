@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //Type: 0-Player, 1-PlayerShadow
+    public int playerType;
+    
     private Rigidbody2D rb;
     private BoxCollider2D coll;
     private Animator anim;
@@ -15,8 +18,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 6.3f;  //跳跃力
     public float jumpHoldForce = 1.9f;  //长按跳跃力
     public float jumpHoldDuration = 0.1f;   //长按跳跃持续时间
-    public float crouchJumpBoost = 2.5f;    //蹲伏跳跃加成
-    public float hangingJumpForce = 15f;    //悬挂跳跃力
+    //public float crouchJumpBoost = 2.5f;    //蹲伏跳跃加成
+    //public float hangingJumpForce = 15f;    //悬挂跳跃力
 
     float jumpTime; //配合Duration
 
@@ -27,12 +30,15 @@ public class PlayerMovement : MonoBehaviour
     public bool isJump;
     public bool isHeadBlocked;
     public bool isHanging;
+    public bool isPushing;
+    public bool isPulling;
 
     [Header("环境检测")]
     //跳跃和触地的射线检测所需参数
     public float footOffset = 0.4f; //脚的偏移
     public float headClearance = 0.5f;  //头顶空隙
     public float groundDistance = 0.2f; //到地面的距离
+    public float interactDistance = 0.4f;
     //悬挂的射线所需参数
     public float playerHeight; //角色高度
     public float eyeHeight = 1.5f; //眼睛高度
@@ -48,12 +54,18 @@ public class PlayerMovement : MonoBehaviour
     bool jumpHeld;  //长按跳跃
     bool crouchHeld;    //长按下蹲
     bool crouchPressed; //单次按下下蹲
+    private bool interactPressed;
+    private bool interactHeld;
+    private bool interactRelease;
 
     //碰撞体各状态的尺寸和位置
     Vector2 colliderStandSize;  //站立尺寸
     Vector2 colliderStandOffset;    //站立位置
     Vector2 colliderCrouchSize; //蹲伏尺寸
     Vector2 colliderCrouchOffset;   //蹲伏位置
+    
+    //交互
+    private GameObject box;
 
     void Start()
     {
@@ -86,6 +98,57 @@ public class PlayerMovement : MonoBehaviour
         jumpHeld = Input.GetButton("Jump"); 
         crouchHeld = Input.GetButton("Crouch");
         crouchPressed = Input.GetButtonDown("Crouch");
+        interactPressed = Input.GetKeyDown(KeyCode.E);
+        //interactHeld = Input.GetKey(KeyCode.E);
+        interactRelease = Input.GetKeyUp(KeyCode.E);
+        
+        
+        //判断面前是否有箱子
+        //之前放在fixedupdate里经常会有检测不到的情况, 后面放到update里面就没问题了, 猜测应该是input的输入检测问题
+        float direction = transform.localScale.x;
+        Vector2 grabDir = new Vector2(direction, 0f);
+        Physics2D.queriesStartInColliders = false;
+        RaycastHit2D boxCheck = Raycast(new Vector2(footOffset * direction, coll.size.y*0.25f), grabDir, interactDistance, groundLayer);
+
+        switch (playerType)
+        {
+            case 0:
+                if (boxCheck && boxCheck.collider.CompareTag("Box") && Input.GetKey(KeyCode.E))
+                {
+                    isPulling = true;
+                    
+                    box = boxCheck.collider.gameObject;
+
+                    box.GetComponent<FixedJoint2D>().enabled = true;
+                    box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
+                }
+                else if(Input.GetKeyUp(KeyCode.E) && isPulling)
+                {
+                    if(box.GetComponent<FixedJoint2D>().enabled == true)
+                        box.GetComponent<FixedJoint2D>().enabled = false;
+                }
+                break;
+            case 1:
+                if (boxCheck && boxCheck.collider.CompareTag("BoxShadow") && Input.GetKey(KeyCode.E))
+                {
+                    isPulling = true;
+                    
+                    box = boxCheck.collider.gameObject;
+
+                    box.GetComponent<FixedJoint2D>().enabled = true;
+                    box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
+                }
+                else if(Input.GetKeyUp(KeyCode.E) && isPulling)
+                {
+                    if(box.GetComponent<FixedJoint2D>().enabled) 
+                        box.GetComponent<FixedJoint2D>().enabled = false;
+                }
+                break;
+                
+                
+        }
+        
+
     }
 
     void FixedUpdate()
@@ -117,6 +180,8 @@ public class PlayerMovement : MonoBehaviour
             isHeadBlocked = true;
         else isHeadBlocked = false;
 
+        
+        
         // //判断是否悬挂
         // float direction = transform.localScale.x;   //左右朝向
         // Vector2 grabDir = new Vector2(direction, 0f);   //射线方向
@@ -174,6 +239,7 @@ public class PlayerMovement : MonoBehaviour
     //空中的相关运动
     void MidAirMovemwnt()
     {
+        /*
         if (isHanging)      //悬挂的后续操作
         {
             if (jumpPressed)    //悬挂跳跃
@@ -190,16 +256,19 @@ public class PlayerMovement : MonoBehaviour
                 isHanging = false;
             }
         }
-       
+       */
+        
         if(jumpPressed && isOnGround && !isJump && !isHeadBlocked)    //跳跃
         {
-            if (isCrouch)   //蹲跳
-            {
-                StandUp();
-                rb.AddForce(new Vector2(0f, crouchJumpBoost), ForceMode2D.Impulse);
-            }
+            // if (isCrouch)   //蹲跳
+            // {
+            //     StandUp();
+            //     rb.AddForce(new Vector2(0f, crouchJumpBoost), ForceMode2D.Impulse);
+            // }
 
             //isOnGround = false;物理的环境判断中即可
+            
+            
             isJump = true;
 
             //Time.time为实时的游戏时间
