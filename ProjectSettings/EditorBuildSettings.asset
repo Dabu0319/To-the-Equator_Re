@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Level01.unity
+    path: Assets/Dabu/Scenes/SnowFeild_01.unity
     guid: cbf42e3f545250b48a07ece57d386ad2
   m_configObjects: {}

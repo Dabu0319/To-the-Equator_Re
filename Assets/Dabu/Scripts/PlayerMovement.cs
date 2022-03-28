@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isHanging;
     public bool isPushing;
     public bool isPulling;
+    public bool isInShelter;
 
     [Header("环境检测")]
     //跳跃和触地的射线检测所需参数
@@ -149,6 +150,16 @@ public class PlayerMovement : MonoBehaviour
         }
         
 
+        //风力
+        if (GameManager.instance.gameStatus == GameStatus.Wind)
+        {
+            if (!isInShelter)
+            {
+                rb.AddForce(Vector2.left*GameManager.instance.windForce,ForceMode2D.Force);
+            }
+ 
+            
+        }
     }
 
     void FixedUpdate()

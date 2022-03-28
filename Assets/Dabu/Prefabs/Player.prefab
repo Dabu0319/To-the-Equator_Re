@@ -100,7 +100,7 @@ MonoBehaviour:
   playerType: 0
   speed: 8
   crouchSpeedDivisor: 3
-  jumpForce: 8
+  jumpForce: 10
   jumpHoldForce: 3
   jumpHoldDuration: 0.5
   isCrouch: 0
@@ -110,6 +110,7 @@ MonoBehaviour:
   isHanging: 0
   isPushing: 0
   isPulling: 0
+  isInShelter: 0
   footOffset: 0.41
   headClearance: 0.46
   groundDistance: 1.19
