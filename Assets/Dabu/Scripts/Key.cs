@@ -26,7 +26,7 @@ public class Key : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         
-        if (other.CompareTag("PlayerShadow") || other.CompareTag("Player"))
+        if (other.CompareTag("PlayerShadow") || other.CompareTag("Player") || other.CompareTag("Box") ||other.CompareTag("BoxShadow"))
         {
             switch (keyType)
             {
@@ -53,14 +53,19 @@ public class Key : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        switch (keyType)
+        if (other.CompareTag("PlayerShadow") || other.CompareTag("Player") || other.CompareTag("Box") ||
+            other.CompareTag("BoxShadow"))
         {
-            case 2:
-                interactObj.GetComponent<Animator>().SetBool("DoorOpen",false);
-                interactObj.GetComponent<Animator>().SetBool("DoorClose",true);
-                Debug.Log("Exit");
-                break;
+            switch (keyType)
+            {
+                case 2:
+                    interactObj.GetComponent<Animator>().SetBool("DoorOpen",false);
+                    interactObj.GetComponent<Animator>().SetBool("DoorClose",true);
+                    Debug.Log("Exit");
+                    break;
                 
+            }
         }
+
     }
 }

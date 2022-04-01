@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Dabu/Scenes/SnowFeild_01.unity
-    guid: cbf42e3f545250b48a07ece57d386ad2
+    path: Assets/Dabu/Scenes/Cave_01.unity
+    guid: 826de8bb8816b744880cc410e31f272c
   m_configObjects: {}

@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public int playerType;
     
     private Rigidbody2D rb;
-    private BoxCollider2D coll;
+    private CapsuleCollider2D coll;
     private Animator anim;
 
     [Header("移动参数")]
@@ -39,7 +39,9 @@ public class PlayerMovement : MonoBehaviour
     public float footOffset = 0.4f; //脚的偏移
     public float headClearance = 0.5f;  //头顶空隙
     public float groundDistance = 0.2f; //到地面的距离
+    //推箱子
     public float interactDistance = 0.4f;
+    public float interactHeight = 0.5f;
     //悬挂的射线所需参数
     public float playerHeight; //角色高度
     public float eyeHeight = 1.5f; //眼睛高度
@@ -71,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        coll = GetComponent<BoxCollider2D>();
+        coll = GetComponent<CapsuleCollider2D>();
 
         //playerHeight = coll.size.y;
 
@@ -109,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         float direction = transform.localScale.x;
         Vector2 grabDir = new Vector2(direction, 0f);
         Physics2D.queriesStartInColliders = false;
-        RaycastHit2D boxCheck = Raycast(new Vector2(footOffset * direction, coll.size.y*0.25f), grabDir, interactDistance, groundLayer);
+        RaycastHit2D boxCheck = Raycast(new Vector2(footOffset * direction, interactHeight), grabDir, interactDistance, groundLayer);
 
         switch (playerType)
         {
