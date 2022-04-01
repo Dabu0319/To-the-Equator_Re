@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public float windForce = 5.0f;
 
     public GameObject blizzard;
+    public GameObject heavyWind;
+    public GameObject normalWind;
 
     private void Awake()
     {
@@ -29,7 +31,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //StartCoroutine(EnterWind());
+        if (gameStatus == GameStatus.Wind)
+        {
+            StartCoroutine(EnterWind());
+        }
+        
     }
 
     // Update is called once per frame
@@ -44,7 +50,9 @@ public class GameManager : MonoBehaviour
     public IEnumerator EnterWind()
     {
         gameStatus = GameStatus.Wind;
-        blizzard.SetActive(true);
+        //blizzard.SetActive(true);
+        normalWind.SetActive(false);
+        heavyWind.SetActive(true);
 
         yield return new WaitForSeconds(5f);
         StartCoroutine(ExitWind());
@@ -53,8 +61,11 @@ public class GameManager : MonoBehaviour
     public IEnumerator ExitWind()
     {
         gameStatus = GameStatus.Normal;
-        blizzard.SetActive(false);
+        //blizzard.SetActive(false);
 
+        normalWind.SetActive(true);
+        heavyWind.SetActive(false);
+        
         yield return new WaitForSeconds(5f);
         StartCoroutine(EnterWind());
     }
