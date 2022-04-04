@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -69,6 +70,10 @@ public class PlayerMovement : MonoBehaviour
     
     //交互
     private GameObject box;
+    
+    //复活点
+    [field:SerializeField]
+    private UnityEvent OnRespawnRequired { get; set; }
 
     void Start()
     {
@@ -344,5 +349,10 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(pos + offset, rayDirection * length, color);
 
         return hit;
+    }
+
+    internal void PlayerDied()
+    {
+        OnRespawnRequired?.Invoke();
     }
 }

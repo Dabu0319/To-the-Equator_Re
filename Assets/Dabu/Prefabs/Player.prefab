@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2163518388493940508}
   - component: {fileID: 2163518388493940504}
   - component: {fileID: 453214016}
+  - component: {fileID: 4890205476996928295}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -115,6 +116,7 @@ MonoBehaviour:
   headClearance: 0.46
   groundDistance: 1.19
   interactDistance: 0.4
+  interactHeight: 0
   playerHeight: 1.05
   eyeHeight: 0.51
   grabDistance: 0.32
@@ -122,6 +124,21 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 24832
+  <OnRespawnRequired>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: RespawnSystem.RespawnManager, Assembly-CSharp
+        m_MethodName: Respawn
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2163518388493940579}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!50 &2163518388493940504
 Rigidbody2D:
   serializedVersion: 4
@@ -159,3 +176,15 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!114 &4890205476996928295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2163518388493940579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e56f3627e6ed84daae5aea2a28c0ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
