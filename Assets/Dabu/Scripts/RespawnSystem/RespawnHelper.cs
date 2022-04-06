@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace RespawnSystem
 {
+    
     public class RespawnHelper : MonoBehaviour
     {
         private RespawnManager m_RespawnManager;
