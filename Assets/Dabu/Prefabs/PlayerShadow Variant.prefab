@@ -7,21 +7,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2163518388493940508, guid: bda857c74ab263c4c9d500e50ce0085c, type: 3}
-      propertyPath: playerType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2163518388493940509, guid: bda857c74ab263c4c9d500e50ce0085c, type: 3}
+    - target: {fileID: 1682666039992538629, guid: bda857c74ab263c4c9d500e50ce0085c, type: 3}
       propertyPath: m_Color.b
-      value: 0.5372549
+      value: 0.3962264
       objectReference: {fileID: 0}
-    - target: {fileID: 2163518388493940509, guid: bda857c74ab263c4c9d500e50ce0085c, type: 3}
+    - target: {fileID: 1682666039992538629, guid: bda857c74ab263c4c9d500e50ce0085c, type: 3}
       propertyPath: m_Color.g
-      value: 0.5372549
+      value: 0.3962264
       objectReference: {fileID: 0}
-    - target: {fileID: 2163518388493940509, guid: bda857c74ab263c4c9d500e50ce0085c, type: 3}
+    - target: {fileID: 1682666039992538629, guid: bda857c74ab263c4c9d500e50ce0085c, type: 3}
       propertyPath: m_Color.r
-      value: 0.5372549
+      value: 0.3962264
+      objectReference: {fileID: 0}
+    - target: {fileID: 2163518388493940508, guid: bda857c74ab263c4c9d500e50ce0085c, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 16640
       objectReference: {fileID: 0}
     - target: {fileID: 2163518388493940510, guid: bda857c74ab263c4c9d500e50ce0085c, type: 3}
       propertyPath: m_RootOrder

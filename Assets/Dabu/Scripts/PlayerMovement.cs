@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public int playerType;
     
     private Rigidbody2D rb;
-    private CapsuleCollider2D coll;
+    private CircleCollider2D coll;
     private Animator anim;
 
     [Header("移动参数")]
@@ -43,11 +43,11 @@ public class PlayerMovement : MonoBehaviour
     //推箱子
     public float interactDistance = 0.4f;
     public float interactHeight = 0.5f;
-    //悬挂的射线所需参数
-    public float playerHeight; //角色高度
-    public float eyeHeight = 1.5f; //眼睛高度
-    public float grabDistance = 0.4f;  //悬挂时的离墙距离
-    public float reachOffset = 0.7f;   //距离玩家一定距离的自上而下的判断（壁挂）射线的起点
+    // //悬挂的射线所需参数
+    // public float playerHeight; //角色高度
+    // public float eyeHeight = 1.5f; //眼睛高度
+    // public float grabDistance = 0.4f;  //悬挂时的离墙距离
+    // public float reachOffset = 0.7f;   //距离玩家一定距离的自上而下的判断（壁挂）射线的起点
 
     public LayerMask groundLayer;
 
@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     //按键设置
     bool jumpPressed;   //单次按下跳跃
-    bool jumpHeld;  //长按跳跃
+     bool jumpHeld;  //长按跳跃
     bool crouchHeld;    //长按下蹲
     bool crouchPressed; //单次按下下蹲
     private bool interactPressed;
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 colliderCrouchOffset;   //蹲伏位置
     
     //交互
-    private GameObject box;
+    public GameObject box;
     
     //复活点
     [field:SerializeField]
@@ -78,18 +78,18 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        coll = GetComponent<CapsuleCollider2D>();
+        coll = GetComponent<CircleCollider2D>();
 
         //playerHeight = coll.size.y;
 
-        //记录站立时的碰撞体参数
-        colliderStandSize = coll.size;
-        colliderStandOffset = coll.offset;
-        //蹲伏状态下的y减半
-        colliderCrouchSize = new Vector2(coll.size.x, coll.size.y / 2f);
-        //这里的/2是从中间开始相当于两边都减半, 有没有什么方法可以让从下面减半
-        //colliderCrouchOffset = new Vector2(coll.offset.x, coll.offset.y / 2f);
-        colliderCrouchOffset = new Vector2(coll.offset.x, coll.offset.y - coll.size.y/4f);;
+        // //记录站立时的碰撞体参数
+        // colliderStandSize = coll.size;
+        // colliderStandOffset = coll.offset;
+        // //蹲伏状态下的y减半
+        // colliderCrouchSize = new Vector2(coll.size.x, coll.size.y / 2f);
+        // //这里的/2是从中间开始相当于两边都减半, 有没有什么方法可以让从下面减半
+        // //colliderCrouchOffset = new Vector2(coll.offset.x, coll.offset.y / 2f);
+        // colliderCrouchOffset = new Vector2(coll.offset.x, coll.offset.y - coll.size.y/4f);;
         
 
         anim = GetComponentInParent<Animator>();
@@ -118,24 +118,38 @@ public class PlayerMovement : MonoBehaviour
         Physics2D.queriesStartInColliders = false;
         RaycastHit2D boxCheck = Raycast(new Vector2(footOffset * direction, interactHeight), grabDir, interactDistance, groundLayer);
 
+        
+        
         switch (playerType)
         {
             case 0:
-                if (boxCheck && boxCheck.collider.CompareTag("Box") && Input.GetKey(KeyCode.E))
+                if (boxCheck && boxCheck.collider.CompareTag("Box") && Input.GetKey(KeyCode.E) )
                 {
                     isPulling = true;
-                    
+                    //有时候不松开是因为直接改变了box目标
+                    if (box != null)
+                    {
+                        box.GetComponent<FixedJoint2D>().enabled = false;
+                    }
                     box = boxCheck.collider.gameObject;
 
                     box.GetComponent<FixedJoint2D>().enabled = true;
                     box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
                 }
-                else if(Input.GetKeyUp(KeyCode.E) && isPulling)
+                else if(Input.GetKeyUp(KeyCode.E)&& box != null )
                 {
                     if(box.GetComponent<FixedJoint2D>().enabled == true)
                         box.GetComponent<FixedJoint2D>().enabled = false;
+                    isPulling = false;
+                    
                 }
+                else if (!isPulling && box != null && box.GetComponent<FixedJoint2D>().enabled == true)
+                {
+                    box.GetComponent<FixedJoint2D>().enabled = false;
+                }
+
                 break;
+            
             case 1:
                 if (boxCheck && boxCheck.collider.CompareTag("BoxShadow") && Input.GetKey(KeyCode.E))
                 {
@@ -146,15 +160,26 @@ public class PlayerMovement : MonoBehaviour
                     box.GetComponent<FixedJoint2D>().enabled = true;
                     box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
                 }
-                else if(Input.GetKeyUp(KeyCode.E) && isPulling)
+                else if(Input.GetKeyUp(KeyCode.E)&& box != null )
                 {
                     if(box.GetComponent<FixedJoint2D>().enabled) 
                         box.GetComponent<FixedJoint2D>().enabled = false;
+                    isPulling = false;
+                }
+
+                else if (!isPulling && box != null && box.GetComponent<FixedJoint2D>().enabled == true)
+                {
+                    box.GetComponent<FixedJoint2D>().enabled = false;
                 }
                 break;
+            
+            
                 
                 
         }
+
+        
+
         
 
         //风力
@@ -192,7 +217,7 @@ public class PlayerMovement : MonoBehaviour
         else isOnGround = false;
 
         //判断头顶是否被阻挡
-        RaycastHit2D headCheck = Raycast(new Vector2(0f, coll.size.y*0.5f), Vector2.up, headClearance, groundLayer);
+        RaycastHit2D headCheck = Raycast(new Vector2(0f, headClearance*0.5f), Vector2.up, headClearance, groundLayer);
         
         if (headCheck)
             isHeadBlocked = true;
@@ -229,13 +254,13 @@ public class PlayerMovement : MonoBehaviour
         if (isHanging)
             return;
 
-        //蹲伏和起身
-        if (crouchHeld && !isCrouch && isOnGround)
-            Crouch();
-        else if (!crouchHeld && isCrouch && !isHeadBlocked)
-            StandUp();
-        else if (!isOnGround && isCrouch)
-            StandUp();
+        // //蹲伏和起身
+        // if (crouchHeld && !isCrouch && isOnGround)
+        //     Crouch();
+        // else if (!crouchHeld && isCrouch && !isHeadBlocked)
+        //     StandUp();
+        // else if (!isOnGround && isCrouch)
+        //     StandUp();
 
         //水平的移动
         xVelocity = Input.GetAxis("Horizontal");
@@ -299,8 +324,13 @@ public class PlayerMovement : MonoBehaviour
         {
             if (jumpHeld)   //长按跳跃
                 rb.AddForce(new Vector2(0f, jumpHoldForce), ForceMode2D.Impulse);
-            
             isJump = false;
+            // if (jumpTime<Time.time)
+            // {
+            //     isJump = false;
+            // }
+
+
         }
 
         // if (Mathf.Abs(rb.velocity.y) > 0)
@@ -322,21 +352,21 @@ public class PlayerMovement : MonoBehaviour
             rb.transform.localScale = new Vector2(1, 1);
     }
 
-    void Crouch()   //蹲伏
-    {
-        isCrouch = true;
-        //碰撞体变为蹲伏状态
-        coll.size = colliderCrouchSize;
-        coll.offset = colliderCrouchOffset;
-    }
-
-    void StandUp()  //起身
-    {
-        isCrouch = false;
-        //碰撞体变为站立状态
-        coll.size = colliderStandSize;
-        coll.offset = colliderStandOffset;
-    }
+    // void Crouch()   //蹲伏
+    // {
+    //     isCrouch = true;
+    //     //碰撞体变为蹲伏状态
+    //     coll.size = colliderCrouchSize;
+    //     coll.offset = colliderCrouchOffset;
+    // }
+    //
+    // void StandUp()  //起身
+    // {
+    //     isCrouch = false;
+    //     //碰撞体变为站立状态
+    //     coll.size = colliderStandSize;
+    //     coll.offset = colliderStandOffset;
+    // }
 
     //重写 Raycast 方法：主要是参数方面和添加了画线
     RaycastHit2D Raycast(Vector2 offset, Vector2 rayDirection, float length, LayerMask layer)

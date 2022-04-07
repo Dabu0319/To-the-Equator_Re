@@ -41,7 +41,7 @@ public class Key : MonoBehaviour
                 case 2:
                     interactObj.GetComponent<Animator>().SetBool("DoorOpen",true);
                     interactObj.GetComponent<Animator>().SetBool("DoorClose",false);
-                    Debug.Log("Enter");
+                    
                     break;
                   
                     
