@@ -11,10 +11,14 @@ public class Key : MonoBehaviour
     //2-Key
     public int keyType;
     public GameObject interactObj;
+
+    public Sprite activeSprite;
+
+    public Sprite originSprite;
     // Start is called before the first frame update
     void Start()
     {
-        
+        originSprite = GetComponent<SpriteRenderer>().sprite;
     }
 
     // Update is called once per frame
@@ -28,6 +32,8 @@ public class Key : MonoBehaviour
         
         if (other.CompareTag("PlayerShadow") || other.CompareTag("Player") || other.CompareTag("Box") ||other.CompareTag("BoxShadow"))
         {
+            GetComponent<SpriteRenderer>().sprite = activeSprite;
+            
             switch (keyType)
             {
                 case 0:
@@ -53,9 +59,13 @@ public class Key : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        GetComponent<SpriteRenderer>().sprite = originSprite;
+        
         if (other.CompareTag("PlayerShadow") || other.CompareTag("Player") || other.CompareTag("Box") ||
             other.CompareTag("BoxShadow"))
         {
+            GetComponent<SpriteRenderer>().sprite = activeSprite;
+            
             switch (keyType)
             {
                 case 2:

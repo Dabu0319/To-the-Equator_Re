@@ -319,16 +319,18 @@ public class PlayerMovement : MonoBehaviour
 
             //给刚体添加一个脉冲力（瞬时力）
             rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            
+            
         }
         else if (isJump)   
         {
-            if (jumpHeld)   //长按跳跃
-                rb.AddForce(new Vector2(0f, jumpHoldForce), ForceMode2D.Impulse);
-            isJump = false;
-            // if (jumpTime<Time.time)
-            // {
-            //     isJump = false;
-            // }
+            // if (jumpHeld)   //长按跳跃
+                // rb.AddForce(new Vector2(0f, jumpHoldForce), ForceMode2D.Impulse);
+
+            if (jumpTime<Time.time)
+            {
+                isJump = false;
+            }
 
 
         }
