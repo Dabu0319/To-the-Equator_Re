@@ -1787,6 +1787,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyType: 2
   interactObj: {fileID: 1915673652}
+  activeSprite: {fileID: 0}
+  originSprite: {fileID: 0}
 --- !u!58 &535714918
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2966,6 +2968,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyType: 2
   interactObj: {fileID: 1798421700}
+  activeSprite: {fileID: 0}
+  originSprite: {fileID: 0}
 --- !u!58 &940755773
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3033,6 +3037,49 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &943783135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 943783137}
+  - component: {fileID: 943783136}
+  m_Layer: 0
+  m_Name: test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &943783136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943783135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e36c250caf6a44c87eb1a1d82ebbef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &943783137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943783135}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -52.706337, y: 1.23565, z: -2.3448434}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &961737018
 GameObject:
   m_ObjectHideFlags: 0
@@ -4450,6 +4497,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyType: 2
   interactObj: {fileID: 321465657}
+  activeSprite: {fileID: 0}
+  originSprite: {fileID: 0}
 --- !u!58 &1537731410
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4870,6 +4919,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyType: 2
   interactObj: {fileID: 1952989110}
+  activeSprite: {fileID: 0}
+  originSprite: {fileID: 0}
 --- !u!58 &1606785977
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6157,6 +6208,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyType: 2
   interactObj: {fileID: 1520206418}
+  activeSprite: {fileID: 0}
+  originSprite: {fileID: 0}
 --- !u!58 &1864157088
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6397,6 +6450,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyType: 1
   interactObj: {fileID: 255120851}
+  activeSprite: {fileID: 0}
+  originSprite: {fileID: 0}
 --- !u!58 &1900148032
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6540,6 +6595,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyType: 2
   interactObj: {fileID: 1324855323}
+  activeSprite: {fileID: 0}
+  originSprite: {fileID: 0}
 --- !u!58 &1935351972
 CircleCollider2D:
   m_ObjectHideFlags: 0
