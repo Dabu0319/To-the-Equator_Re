@@ -12,13 +12,16 @@ public class Key : MonoBehaviour
     public int keyType;
     public GameObject interactObj;
 
-    public Sprite activeSprite;
+    // public Sprite activeSprite;
+    //
+    // public Sprite originSprite;
 
-    public Sprite originSprite;
+    private Animator anim;
     // Start is called before the first frame update
     void Start()
     {
-        originSprite = GetComponent<SpriteRenderer>().sprite;
+        //originSprite = GetComponent<SpriteRenderer>().sprite;
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -32,7 +35,7 @@ public class Key : MonoBehaviour
         
         if (other.CompareTag("PlayerShadow") || other.CompareTag("Player") || other.CompareTag("Box") ||other.CompareTag("BoxShadow"))
         {
-            GetComponent<SpriteRenderer>().sprite = activeSprite;
+            //GetComponent<SpriteRenderer>().sprite = activeSprite;
             
             switch (keyType)
             {
@@ -47,7 +50,8 @@ public class Key : MonoBehaviour
                 case 2:
                     interactObj.GetComponent<Animator>().SetBool("DoorOpen",true);
                     interactObj.GetComponent<Animator>().SetBool("DoorClose",false);
-                    
+                    anim.SetBool("KeyEnable",true);
+                    anim.SetBool("KeyDisable",false);
                     break;
                   
                     
@@ -59,18 +63,20 @@ public class Key : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        GetComponent<SpriteRenderer>().sprite = originSprite;
+        //GetComponent<SpriteRenderer>().sprite = originSprite;
         
         if (other.CompareTag("PlayerShadow") || other.CompareTag("Player") || other.CompareTag("Box") ||
             other.CompareTag("BoxShadow"))
         {
-            GetComponent<SpriteRenderer>().sprite = activeSprite;
+            //GetComponent<SpriteRenderer>().sprite = activeSprite;
             
             switch (keyType)
             {
                 case 2:
                     interactObj.GetComponent<Animator>().SetBool("DoorOpen",false);
                     interactObj.GetComponent<Animator>().SetBool("DoorClose",true);
+                    anim.SetBool("KeyEnable",false);
+                    anim.SetBool("KeyDisable",true);
                     Debug.Log("Exit");
                     break;
                 

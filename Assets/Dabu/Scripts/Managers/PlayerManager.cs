@@ -30,7 +30,7 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        cineCam = FindObjectOfType<CinemachineVirtualCamera>();
+        //cineCam = FindObjectOfType<CinemachineVirtualCamera>();
     }
 
     // Update is called once per frame
@@ -43,7 +43,8 @@ public class PlayerManager : MonoBehaviour
             
             
                 Instantiate(playerShadow,player.transform.position,player.transform.rotation);
-                player.GetComponent<PlayerMovement>().enabled = false;
+                player.GetComponent<PlayerMovement>().moveEnabled = false;
+                playerShadow.GetComponent<PlayerMovement>().moveEnabled = true;
 
                 cineCam.Follow = GameObject.FindWithTag("PlayerShadow").transform;
                 cineCam.LookAt = GameObject.FindWithTag("PlayerShadow").transform;
@@ -57,7 +58,8 @@ public class PlayerManager : MonoBehaviour
             
                 //DestroyImmediate (playerShadow, true);
                 Destroy(GameObject.FindWithTag("PlayerShadow"));
-                player.GetComponent<PlayerMovement>().enabled = true;
+                player.GetComponent<PlayerMovement>().moveEnabled = true;
+                
             
                 cineCam.Follow = player.transform;
                 cineCam.LookAt = player.transform;

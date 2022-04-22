@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     //Type: 0-Player, 1-PlayerShadow
     public int playerType;
+
+    public bool moveEnabled = true;
     
     private Rigidbody2D rb;
     private CircleCollider2D coll;
@@ -14,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("移动参数")]
     public float speed = 8f;
     public float crouchSpeedDivisor = 3f;   //蹲伏移速除数
+    public float skiingSpeedMultiplier = 2f;
 
     [Header("跳跃参数")]
     public float jumpForce = 6.3f;  //跳跃力
@@ -30,10 +33,10 @@ public class PlayerMovement : MonoBehaviour
     public bool isOnGround;
     public bool isJump;
     public bool isHeadBlocked;
-    public bool isHanging;
     public bool isPushing;
     public bool isPulling;
     public bool isInShelter;
+    public bool isSkiing;
 
     [Header("环境检测")]
     //跳跃和触地的射线检测所需参数
@@ -43,13 +46,10 @@ public class PlayerMovement : MonoBehaviour
     //推箱子
     public float interactDistance = 0.4f;
     public float interactHeight = 0.5f;
-    // //悬挂的射线所需参数
-    // public float playerHeight; //角色高度
-    // public float eyeHeight = 1.5f; //眼睛高度
-    // public float grabDistance = 0.4f;  //悬挂时的离墙距离
-    // public float reachOffset = 0.7f;   //距离玩家一定距离的自上而下的判断（壁挂）射线的起点
+
 
     public LayerMask groundLayer;
+    public LayerMask slopeLayer;
 
     float xVelocity;
 
@@ -79,19 +79,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<CircleCollider2D>();
-
-        //playerHeight = coll.size.y;
-
-        // //记录站立时的碰撞体参数
-        // colliderStandSize = coll.size;
-        // colliderStandOffset = coll.offset;
-        // //蹲伏状态下的y减半
-        // colliderCrouchSize = new Vector2(coll.size.x, coll.size.y / 2f);
-        // //这里的/2是从中间开始相当于两边都减半, 有没有什么方法可以让从下面减半
-        // //colliderCrouchOffset = new Vector2(coll.offset.x, coll.offset.y / 2f);
-        // colliderCrouchOffset = new Vector2(coll.offset.x, coll.offset.y - coll.size.y/4f);;
-        
-
         anim = GetComponentInParent<Animator>();
 
     }
@@ -109,9 +96,10 @@ public class PlayerMovement : MonoBehaviour
         interactPressed = Input.GetKeyDown(KeyCode.E);
         //interactHeld = Input.GetKey(KeyCode.E);
         interactRelease = Input.GetKeyUp(KeyCode.E);
+
+        #region 推箱子
         
-        
-        //判断面前是否有箱子
+         //判断面前是否有箱子
         //之前放在fixedupdate里经常会有检测不到的情况, 后面放到update里面就没问题了, 猜测应该是input的输入检测问题
         float direction = transform.localScale.x;
         Vector2 grabDir = new Vector2(direction, 0f);
@@ -122,6 +110,7 @@ public class PlayerMovement : MonoBehaviour
         
         switch (playerType)
         {
+            //Player
             case 0:
                 if (boxCheck && boxCheck.collider.CompareTag("Box") && Input.GetKey(KeyCode.E) )
                 {
@@ -149,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 break;
-            
+            //Player Shadow
             case 1:
                 if (boxCheck && boxCheck.collider.CompareTag("BoxShadow") && Input.GetKey(KeyCode.E))
                 {
@@ -173,15 +162,11 @@ public class PlayerMovement : MonoBehaviour
                 }
                 break;
             
-            
-                
-                
         }
-
         
-
+        #endregion
         
-
+        
         //风力
         if (GameManager.instance.gameStatus == GameStatus.Wind)
         {
@@ -189,8 +174,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.AddForce(Vector2.left*GameManager.instance.windForce,ForceMode2D.Force);
             }
- 
-            
+
         }
     }
 
@@ -200,9 +184,18 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpPressed = false;
         }
+        
+        
         PhysicsCheck(); //物理环境检查
-        GroundMovement();   //地面运动
-        MidAirMovemwnt();   //空中运动
+
+
+        if (moveEnabled)
+        {
+
+            GroundMovement();   //地面运动
+            MidAirMovemwnt();   //空中运动
+        }
+
     }
     
     //物理的环境检查并确定状态
@@ -211,9 +204,15 @@ public class PlayerMovement : MonoBehaviour
         //判断是否在地面上
         RaycastHit2D leftCheck = Raycast(new Vector2(-footOffset, 0f), Vector2.down, groundDistance, groundLayer);
         RaycastHit2D rightCheck = Raycast(new Vector2(footOffset, 0f), Vector2.down, groundDistance, groundLayer);
-        
+
         if (leftCheck || rightCheck)
+        {
             isOnGround = true;
+            isSkiing = false;
+        }
+            
+        
+
         else isOnGround = false;
 
         //判断头顶是否被阻挡
@@ -222,46 +221,46 @@ public class PlayerMovement : MonoBehaviour
         if (headCheck)
             isHeadBlocked = true;
         else isHeadBlocked = false;
+        
+        //判断是否在斜坡上
+        RaycastHit2D leftSlopeCheck = Raycast(new Vector2(-footOffset, 0f), Vector2.down, groundDistance, slopeLayer);
+        RaycastHit2D rightSlopeCheck = Raycast(new Vector2(footOffset, 0f), Vector2.down, groundDistance, slopeLayer);
+
+        if (leftSlopeCheck || rightSlopeCheck)
+        {
+            isSkiing = true;
+
+        }
 
         
+        if (isSkiing)
+        {
+            rb.velocity = new Vector2(speed * skiingSpeedMultiplier, rb.velocity.y);
+            if (rb.velocity.x < 0)
+                rb.transform.localScale = new Vector2(-1, 1);
+            if (rb.velocity.x > 0)
+                rb.transform.localScale = new Vector2(1, 1);
+            
+            //水平的移动
+            xVelocity = Input.GetAxis("Horizontal");
+            //角色朝向
+            FlipDirection();
+
+            
+        }
+        //else isSkiing = false;
         
-        // //判断是否悬挂
-        // float direction = transform.localScale.x;   //左右朝向
-        // Vector2 grabDir = new Vector2(direction, 0f);   //射线方向
-        //
-        // RaycastHit2D blockedCheck = Raycast(new Vector2(footOffset * direction, playerHeight), grabDir, grabDistance, groundLayer); //头顶射线
-        // RaycastHit2D wallCheck = Raycast(new Vector2(footOffset * direction, eyeHeight), grabDir, grabDistance, groundLayer); //眼睛射线
-        // RaycastHit2D ledgeCheck = Raycast(new Vector2(reachOffset * direction, playerHeight), Vector2.down, grabDistance, groundLayer); //壁挂检测射线
-        //
-        // if (!isOnGround && rb.velocity.y < 0 && !blockedCheck && wallCheck && ledgeCheck)    //不在地面上、下落状态时、三线判断
-        // {
-        //     Vector3 pos = transform.position;   //记录原位置进行修改
-        //
-        //     pos.x += (wallCheck.distance - 0.05f) * direction;    //修改位置在固定位置上
-        //     pos.y -= ledgeCheck.distance;
-        //
-        //     transform.position = pos;
-        //
-        //     rb.bodyType = RigidbodyType2D.Static;   //定住角色
-        //     isHanging = true;
-        // }
+
+        FlipDirection();
+        
     }
 
     //地面(碰到Ground)上的相关运动
     void GroundMovement()   
     {
-        //悬挂
-        if (isHanging)
+        if(isSkiing)
             return;
-
-        // //蹲伏和起身
-        // if (crouchHeld && !isCrouch && isOnGround)
-        //     Crouch();
-        // else if (!crouchHeld && isCrouch && !isHeadBlocked)
-        //     StandUp();
-        // else if (!isOnGround && isCrouch)
-        //     StandUp();
-
+        
         //水平的移动
         xVelocity = Input.GetAxis("Horizontal");
         //蹲伏速度
@@ -277,39 +276,17 @@ public class PlayerMovement : MonoBehaviour
         
         //角色朝向
         FlipDirection();
+        
     }
 
     //空中的相关运动
     void MidAirMovemwnt()
     {
-        /*
-        if (isHanging)      //悬挂的后续操作
-        {
-            if (jumpPressed)    //悬挂跳跃
-            {
-                rb.bodyType = RigidbodyType2D.Dynamic;
-                //rb.AddForce(new Vector2(0f, hangingJumpForce), ForceMode2D.Impulse);
-                rb.velocity = new Vector2(rb.velocity.x, hangingJumpForce);
-                isHanging = false;
-            }
-            if (crouchPressed)   //悬挂下落，注意使用单次按下，防止蹲跳悬挂的瞬间掉落
-            {
-                rb.bodyType = RigidbodyType2D.Dynamic;
 
-                isHanging = false;
-            }
-        }
-       */
         
         if(jumpPressed && isOnGround && !isJump && !isHeadBlocked)    //跳跃
         {
-            // if (isCrouch)   //蹲跳
-            // {
-            //     StandUp();
-            //     rb.AddForce(new Vector2(0f, crouchJumpBoost), ForceMode2D.Impulse);
-            // }
 
-            //isOnGround = false;物理的环境判断中即可
             
             
             isJump = true;
@@ -354,21 +331,7 @@ public class PlayerMovement : MonoBehaviour
             rb.transform.localScale = new Vector2(1, 1);
     }
 
-    // void Crouch()   //蹲伏
-    // {
-    //     isCrouch = true;
-    //     //碰撞体变为蹲伏状态
-    //     coll.size = colliderCrouchSize;
-    //     coll.offset = colliderCrouchOffset;
-    // }
-    //
-    // void StandUp()  //起身
-    // {
-    //     isCrouch = false;
-    //     //碰撞体变为站立状态
-    //     coll.size = colliderStandSize;
-    //     coll.offset = colliderStandOffset;
-    // }
+
 
     //重写 Raycast 方法：主要是参数方面和添加了画线
     RaycastHit2D Raycast(Vector2 offset, Vector2 rayDirection, float length, LayerMask layer)

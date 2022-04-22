@@ -47,3 +47,4 @@ MonoBehaviour:
   playerShadow: {fileID: 6003400874567372372, guid: 95c2905047146874886ef1de28ce04c3, type: 3}
   cineCam: {fileID: 0}
   playerStatus: 0
+  abilityActive: 0
