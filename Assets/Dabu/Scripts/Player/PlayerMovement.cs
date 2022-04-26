@@ -85,7 +85,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        //加这个主要是解决有时候update和fixedupdate之间的gap导致无法jump, 后面moveenabled是为了解决转换之后自动跳一下
+        if (Input.GetButtonDown("Jump") && moveEnabled)
         {
             jumpPressed = true;
         }
@@ -180,17 +181,18 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+
         if (isJump)
         {
             jumpPressed = false;
         }
-        
         
         PhysicsCheck(); //物理环境检查
 
 
         if (moveEnabled)
         {
+
 
             GroundMovement();   //地面运动
             MidAirMovemwnt();   //空中运动
@@ -284,7 +286,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         
-        if(jumpPressed && isOnGround && !isJump && !isHeadBlocked)    //跳跃
+        if(jumpPressed && isOnGround && !isJump && !isHeadBlocked && moveEnabled)    //跳跃
         {
 
             

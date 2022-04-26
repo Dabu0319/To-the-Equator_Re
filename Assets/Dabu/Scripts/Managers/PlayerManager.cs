@@ -60,6 +60,8 @@ public class PlayerManager : MonoBehaviour
                 Destroy(GameObject.FindWithTag("PlayerShadow"));
                 player.GetComponent<PlayerMovement>().moveEnabled = true;
                 
+                
+                
             
                 cineCam.Follow = player.transform;
                 cineCam.LookAt = player.transform;
