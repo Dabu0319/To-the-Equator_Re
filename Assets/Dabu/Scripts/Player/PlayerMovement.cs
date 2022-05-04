@@ -210,6 +210,7 @@ public class PlayerMovement : MonoBehaviour
         if (leftCheck || rightCheck)
         {
             isOnGround = true;
+            anim.SetBool("isJumping",false);
             isSkiing = false;
         }
             
@@ -273,7 +274,7 @@ public class PlayerMovement : MonoBehaviour
 
         //走路动画
   
-        //anim.SetFloat("XMove",Mathf.Abs(xVelocity));
+        anim.SetFloat("speed",Mathf.Abs(xVelocity));
         
         
         //角色朝向
@@ -292,6 +293,7 @@ public class PlayerMovement : MonoBehaviour
             
             
             isJump = true;
+            anim.SetBool("isJumping",true);
 
             //Time.time为实时的游戏时间
             jumpTime = Time.time + jumpHoldDuration;
@@ -313,14 +315,15 @@ public class PlayerMovement : MonoBehaviour
 
 
         }
-
+        //
+        // Debug.Log(rb.velocity.y);
         // if (Mathf.Abs(rb.velocity.y) > 0)
         // {
-        //     anim.SetBool("Jump",true);
+        //     anim.SetBool("isJumping",true);
         // }
         // else
         // {
-        //     anim.SetBool("Jump",false);
+        //     anim.SetBool("isJumping",false);
         // }
 
     }
