@@ -11,6 +11,7 @@ namespace RespawnSystem
     {
 
         public GameObject respawnTarget;
+        private Animator anim;
         
         [field:SerializeField]
         private UnityEvent onSpawnPointActivated { get; set; }
@@ -20,6 +21,8 @@ namespace RespawnSystem
             onSpawnPointActivated.AddListener(()=>
                 GetComponentInParent<RespawnManager>().UpdateRespawnPoint(this)
                 );
+
+            anim = GetComponent<Animator>();
         }
 
 
@@ -30,6 +33,9 @@ namespace RespawnSystem
                 this.respawnTarget = other.gameObject;
                 onSpawnPointActivated?.Invoke();
                 //GetComponent<Collider2D>().enabled = false;
+                
+                //animation
+                anim.SetTrigger("Active");
 
             }
         }
