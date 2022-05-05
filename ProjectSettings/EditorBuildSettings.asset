@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Dabu/Scenes/Cave_01.unity
-    guid: 826de8bb8816b744880cc410e31f272c
+    path: Assets/Scenes/Cave_Formal.unity
+    guid: b8f0d0024c29c3548940fd939dc85209
   m_configObjects: {}
