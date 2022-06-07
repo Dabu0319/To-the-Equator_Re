@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement_Kanon : MonoBehaviour
 {
     //Type: 0-Player, 1-PlayerShadow
     public int playerType;
