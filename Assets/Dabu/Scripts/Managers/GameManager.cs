@@ -5,7 +5,7 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum GameStatus
+public  enum GameStatus
 {
     Normal,
     Wind,
@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public GameObject heavyWind;
     public GameObject normalWind;
 
+    
     private void Awake()
     {
         instance = this;
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameStatus == GameStatus.Wind)
         {
-            StartCoroutine(EnterWind());
+            StartCoroutine(EnterWind(0f, 3f,3f));
         }
         
     }
@@ -47,18 +48,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public IEnumerator EnterWind()
+    public IEnumerator EnterWind(float startDelay, float windTime, float windStopTime)
     {
+        yield return new WaitForSeconds(startDelay);
         gameStatus = GameStatus.Wind;
         //blizzard.SetActive(true);
         normalWind.SetActive(false);
         heavyWind.SetActive(true);
 
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(ExitWind());
+        yield return new WaitForSeconds(windTime);
+        StartCoroutine(ExitWind(startDelay,windTime,windStopTime));
     }
 
-    public IEnumerator ExitWind()
+    public IEnumerator ExitWind(float startDelay, float windTime, float windStopTime)
     {
         gameStatus = GameStatus.Normal;
         //blizzard.SetActive(false);
@@ -66,9 +68,17 @@ public class GameManager : MonoBehaviour
         normalWind.SetActive(true);
         heavyWind.SetActive(false);
         
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(EnterWind());
+        yield return new WaitForSeconds(windStopTime);
+        StartCoroutine(EnterWind(0,windTime,windStopTime));
     }
+
+    public void StopWind()
+    {
+        StopAllCoroutines();
+        gameStatus = GameStatus.Normal;
+    }
+    
+    
 
 
     #region 关卡SceneManager相关

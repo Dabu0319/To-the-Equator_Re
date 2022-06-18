@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     
     private Rigidbody2D rb;
     private CircleCollider2D coll;
-    // private Animator anim;
+    private Animator anim;
 
     [Header("移动参数")]
     public float speed = 8f;
@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<CircleCollider2D>();
-        // anim = GetComponentInParent<Animator>();
+        anim = GetComponentInParent<Animator>();
 
     }
 
@@ -168,15 +168,15 @@ public class PlayerMovement : MonoBehaviour
         #endregion
         
         
-        //风力
-        if (GameManager.instance.gameStatus == GameStatus.Wind)
-        {
-            if (!isInShelter)
-            {
-                rb.AddForce(Vector2.left*GameManager.instance.windForce,ForceMode2D.Force);
-            }
-
-        }
+        // //风力
+        // if (GameManager.instance.gameStatus == GameStatus.Wind)
+        // {
+        //     if (!isInShelter)
+        //     {
+        //         rb.AddForce(Vector2.left*GameManager.instance.windForce,ForceMode2D.Force);
+        //     }
+        //
+        // }
     }
 
     void FixedUpdate()
@@ -210,8 +210,8 @@ public class PlayerMovement : MonoBehaviour
         if (leftCheck || rightCheck)
         {
             isOnGround = true;
-            // anim.SetBool("isJumping",false);
-            AnimationController_Kanon.Instance.SetGrounded(true);
+            anim.SetBool("isJumping",false);
+            //AnimationController_Kanon.Instance.SetGrounded(true);
             isSkiing = false;
         }
 
@@ -220,7 +220,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             isOnGround = false;
-            AnimationController_Kanon.Instance.SetGrounded(false);
+            //AnimationController_Kanon.Instance.SetGrounded(false);
         }
         
 
@@ -265,26 +265,36 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //地面(碰到Ground)上的相关运动
-    void GroundMovement()   
+    public void GroundMovement()   
     {
-        if(isSkiing)
+        if(isSkiing )
             return;
-        
-        //水平的移动
-        xVelocity = Input.GetAxis("Horizontal");
-        //蹲伏速度
-        if (isCrouch)
-            xVelocity /= crouchSpeedDivisor;
-        //正常速度
-        rb.velocity = new Vector2(xVelocity * speed, rb.velocity.y);
 
-        //走路动画
-        AnimationController_Kanon.Instance.PlayMoveAni(Mathf.Abs(xVelocity));
-        // anim.SetFloat("speed",Mathf.Abs(xVelocity));
+        if (GameManager.instance.gameStatus == GameStatus.Wind &&  !isInShelter &&this.CompareTag("Player"))
+        {
+            rb.velocity = new Vector2(-GameManager.instance.windForce, rb.velocity.y);
+        }
+        else
+        {
+            //水平的移动
+            xVelocity = Input.GetAxis("Horizontal");
+            //蹲伏速度
+            if (isCrouch)
+                xVelocity /= crouchSpeedDivisor;
+            //正常速度
+            rb.velocity = new Vector2(xVelocity * speed, rb.velocity.y);
+
+            //走路动画
+            //AnimationController_Kanon.Instance.PlayMoveAni(Mathf.Abs(xVelocity));
+            anim.SetFloat("speed",Mathf.Abs(xVelocity));
         
         
-        //角色朝向
-        FlipDirection();
+            //角色朝向
+            FlipDirection();
+        }
+            
+        
+        
         
     }
 
@@ -299,8 +309,8 @@ public class PlayerMovement : MonoBehaviour
             
             
             isJump = true;
-            AnimationController_Kanon.Instance.PlayJumpAni();
-            // anim.SetBool("isJumping",true);
+            //AnimationController_Kanon.Instance.PlayJumpAni();
+            anim.SetBool("isJumping",true);
 
             //Time.time为实时的游戏时间
             jumpTime = Time.time + jumpHoldDuration;
