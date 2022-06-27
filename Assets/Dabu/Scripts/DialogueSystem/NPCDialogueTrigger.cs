@@ -15,7 +15,7 @@ public class NPCDialogueTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J) && playerIn)
+        if (Input.GetKeyDown(KeyCode.I) && playerIn)
         {
             NPCDialogueController.Instance.NPCDialogueStart(dia);
         }
