@@ -45,7 +45,9 @@ public class Key : MonoBehaviour
                     break;
                 case 1:
                     interactObj.SetActive(true);
-                    Destroy(gameObject);
+                    anim.SetBool("KeyEnable", true);
+                    anim.SetBool("KeyDisable", false);
+                    //Destroy(gameObject);
                     break;
                 case 2:
                     interactObj.GetComponent<Animator>().SetBool("DoorOpen",true);
