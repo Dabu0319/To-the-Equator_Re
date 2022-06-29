@@ -49,7 +49,7 @@ public class DialogueController : UnitySingleton<DialogueController>
     {
         if (_isTalking)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.I))
             {
                 PlayDialogue();
                 return;
@@ -59,6 +59,7 @@ public class DialogueController : UnitySingleton<DialogueController>
 
     public void StartDialogue(DialogueObject dia)
     {
+        if(_isTalking) return;
         if(OnDialogueStart != null) OnDialogueStart.Invoke();
         currentDialogue = dia;
         currentDialogue.ResetCurrentDialogueIndex();

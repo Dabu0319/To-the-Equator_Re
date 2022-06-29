@@ -22,7 +22,7 @@ public class NPCDialogueController : UnitySingleton<NPCDialogueController>
         if (isTalking)
         {
             NPCDiaTrans.position = Camera.main.WorldToScreenPoint(npcTrans.position) + offset;
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.I))
             {
                 PlayDialogue();
                 return;
@@ -32,12 +32,13 @@ public class NPCDialogueController : UnitySingleton<NPCDialogueController>
 
     public void NPCDialogueStart(DialogueObject dia)
     {
+        if(isTalking) return;
         isTalking = true;
+        
         NPCDiaTrans.gameObject.SetActive(true);
         
         currentDialogue = dia;
         dia.ResetCurrentDialogueIndex();
-        PlayDialogue();
     }
     
     public void NPCDialogueEND()
