@@ -15,7 +15,9 @@ MonoBehaviour:
   NPC_Image: {fileID: 0}
   NPC_Name: 01
   dialogue:
-  - Hey you!
-  - Good to see you!
-  - I'm xxx
-  - Go ahead!
+  - Hi. I mean,
+  - thank you for playing our game.
+  - Yeah, music is off.
+  - And yeah, no character animation.
+  - Because animation controller sucks.
+  - Go ahead.
