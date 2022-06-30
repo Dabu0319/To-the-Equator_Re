@@ -17,6 +17,12 @@ public class NPCDialogueController : UnitySingleton<NPCDialogueController>
 
     public Vector3 offset = Vector3.zero;
 
+
+
+    //public float wordSpeed;//让字母一个个打出来
+
+
+
     private void Update()
     {
         if (isTalking)
@@ -29,6 +35,19 @@ public class NPCDialogueController : UnitySingleton<NPCDialogueController>
             }
         }
     }
+
+
+
+    //IEnumerator Typing()//让字母一个个打出来
+    //{
+        //foreach (char letter in currentDialogue.GetCurrentDialogue())
+        //{
+           // npcDiaText.text += letter;
+           // yield return new WaitForSeconds(wordSpeed);
+       // }
+    //}
+
+
 
     public void NPCDialogueStart(DialogueObject dia)
     {
@@ -53,6 +72,7 @@ public class NPCDialogueController : UnitySingleton<NPCDialogueController>
         if (curDia != null)
         {
             npcDiaText.text = curDia;
+            //StartCoroutine(Typing());//让字母一个个打出来
         }
         else
         {
