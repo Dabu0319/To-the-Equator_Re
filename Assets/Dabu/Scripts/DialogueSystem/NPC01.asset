@@ -15,9 +15,9 @@ MonoBehaviour:
   NPC_Image: {fileID: 0}
   NPC_Name: 01
   dialogue:
-  - Hi. I mean,
-  - thank you for playing our game.
-  - Yeah, music is off.
-  - And yeah, no character animation.
-  - Because animation controller sucks.
-  - Go ahead.
+  - What the...
+  - I thought everybody was gone.
+  - I mean, didn't survive.
+  - Wait, you're not going to jump out of here, are you?
+  - All my brothers, died falling off here.
+  - Other way out? Haha, if I could find it, I wouldn't be standing here

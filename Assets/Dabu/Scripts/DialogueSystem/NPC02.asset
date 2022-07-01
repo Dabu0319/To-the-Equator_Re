@@ -15,8 +15,9 @@ MonoBehaviour:
   NPC_Image: {fileID: 0}
   NPC_Name: NPC02
   dialogue:
-  - Oh, heya player for testing!
-  - Don't mind me, I'm the NPC stuck here forever
-  - I donno why my designer keeps me talking these
-  - But in the final version I may say something make sense
-  - Go ahead, player
+  - ...........
+  - Ya know, I never expect to see another living creature here..
+  - If could, would you help me keep an eye out for a red whale?
+  - He's my brother, if you see him please tell him I'm alive
+  - let him not worry. I'm safe.
+  - That old guy, he has almost lost his mobility. But he promised to save me.
