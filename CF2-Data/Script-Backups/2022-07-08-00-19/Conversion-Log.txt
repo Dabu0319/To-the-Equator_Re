@@ -1,0 +1,10 @@
+Converting script [1 / 1]	[\Dabu\Scripts\DialogueSystem\NPCDialogueTrigger.cs]
+	Fragments : 1
+		[ 0] : Line:   18	InputMethod   GetKeyDown          	(KeyCode.I)
+
+
+1 scripts modified!
+Overwriting actual scripts...
+	[0 / 1] from  [G:/Unity_project/To-the-Equator_Re/CF2-Data/Script-Backups/2022-07-08-00-19\Assets-After/\Dabu\Scripts\DialogueSystem\NPCDialogueTrigger.cs] to [G:/Unity_project/To-the-Equator_Re/Assets/\Dabu\Scripts\DialogueSystem\NPCDialogueTrigger.cs]
+
+Overwriting COMPLETED!
