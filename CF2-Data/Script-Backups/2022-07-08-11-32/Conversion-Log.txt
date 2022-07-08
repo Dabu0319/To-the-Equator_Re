@@ -1,0 +1,16 @@
+Converting script [1 / 2]	[\Dabu\Scripts\Managers\GameManager.cs]
+	Fragments : 1
+		[ 0] : Line:   45	InputMethod   GetKeyDown          	(KeyCode.R)
+
+Converting script [2 / 2]	[\Dabu\Scripts\Managers\PlayerManager.cs]
+	Fragments : 2
+		[ 0] : Line:   41	InputMethod   GetKeyDown          	(KeyCode.LeftShift)
+		[ 1] : Line:   55	InputMethod   GetKeyDown          	(KeyCode.LeftShift)
+
+
+2 scripts modified!
+Overwriting actual scripts...
+	[0 / 2] from  [G:/Unity_project/To-the-Equator_Re/CF2-Data/Script-Backups/2022-07-08-11-32\Assets-After/\Dabu\Scripts\Managers\GameManager.cs] to [G:/Unity_project/To-the-Equator_Re/Assets/\Dabu\Scripts\Managers\GameManager.cs]
+	[1 / 2] from  [G:/Unity_project/To-the-Equator_Re/CF2-Data/Script-Backups/2022-07-08-11-32\Assets-After/\Dabu\Scripts\Managers\PlayerManager.cs] to [G:/Unity_project/To-the-Equator_Re/Assets/\Dabu\Scripts\Managers\PlayerManager.cs]
+
+Overwriting COMPLETED!

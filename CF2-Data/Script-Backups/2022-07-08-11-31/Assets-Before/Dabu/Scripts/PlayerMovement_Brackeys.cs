@@ -22,9 +22,9 @@ public class PlayerMovement_Brackeys : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _horizontalMove = ControlFreak2.CF2Input.GetAxisRaw("Horizontal") * runSpeed;
+        _horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-        if (ControlFreak2.CF2Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump"))
         {
             _jump = true;
         }

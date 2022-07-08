@@ -38,7 +38,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (abilityActive)
         {
-            if (ControlFreak2.CF2Input.GetKeyDown(KeyCode.LeftShift)  && playerStatus==PlayerStatus.PlayerActive)
+            if (Input.GetKeyDown(KeyCode.LeftShift)  && playerStatus==PlayerStatus.PlayerActive)
             {
             
             
@@ -52,7 +52,7 @@ public class PlayerManager : MonoBehaviour
                 playerStatus = PlayerStatus.PlayerShadowActive;
             }
         
-            else if (ControlFreak2.CF2Input.GetKeyDown(KeyCode.LeftShift)  && playerStatus==PlayerStatus.PlayerShadowActive)
+            else if (Input.GetKeyDown(KeyCode.LeftShift)  && playerStatus==PlayerStatus.PlayerShadowActive)
             {
             
             
