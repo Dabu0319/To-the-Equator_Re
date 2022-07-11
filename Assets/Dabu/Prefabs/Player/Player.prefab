@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2163518388493940508}
   - component: {fileID: 2163518388493940504}
   - component: {fileID: 4890205476996928295}
-  - component: {fileID: 453214017}
   - component: {fileID: 1682666039992538629}
   - component: {fileID: 5324428726064481357}
   - component: {fileID: 453214020}
@@ -32,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 2163518388493940579}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.13, y: -0.16, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -125,20 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76e56f3627e6ed84daae5aea2a28c0ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &453214017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2163518388493940579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7841e5dc9c60471419a779d09e21519e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startTimeBtwSpawns: 0.04
-  echo: {fileID: 1020408332352716402, guid: d24e06d3997d06247be7beeb6a50bedc, type: 3}
 --- !u!212 &1682666039992538629
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -200,7 +185,7 @@ Animator:
   m_GameObject: {fileID: 2163518388493940579}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d39fa2c0b2c4d34489357d34b10c515f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5cd8a80b2883eac4fa4b52b9eed59954, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<CircleCollider2D>();
-        anim = GetComponentInParent<Animator>();
+        //anim = GetComponentInParent<Animator>();
 
     }
 
@@ -210,7 +210,7 @@ public class PlayerMovement : MonoBehaviour
         if (leftCheck || rightCheck)
         {
             isOnGround = true;
-            anim.SetBool("isJumping",false);
+            //anim.SetBool("isJumping",false);
             //AnimationController_Kanon.Instance.SetGrounded(true);
             isSkiing = false;
         }
@@ -286,7 +286,7 @@ public class PlayerMovement : MonoBehaviour
 
             //走路动画
             //AnimationController_Kanon.Instance.PlayMoveAni(Mathf.Abs(xVelocity));
-            anim.SetFloat("speed",Mathf.Abs(xVelocity));
+            //anim.SetFloat("speed",Mathf.Abs(xVelocity));
         
         
             //角色朝向
@@ -310,7 +310,7 @@ public class PlayerMovement : MonoBehaviour
             
             isJump = true;
             //AnimationController_Kanon.Instance.PlayJumpAni();
-            anim.SetBool("isJumping",true);
+            //anim.SetBool("isJumping",true);
 
             //Time.time为实时的游戏时间
             jumpTime = Time.time + jumpHoldDuration;
