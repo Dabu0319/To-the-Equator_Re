@@ -33,5 +33,5 @@ Material:
     - _WaveSizeY: 0.25
     - _WaveSpeed: 4
     m_Colors:
-    - _Color: {r: 1, g: 0.9975532, b: 0.9669811, a: 1}
+    - _Color: {r: 0.96599996, g: 0.9622117, b: 0.9356941, a: 1}
   m_BuildTextureStacks: []
