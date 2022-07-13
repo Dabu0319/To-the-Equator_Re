@@ -71,6 +71,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1682666039992538629, guid: bda857c74ab263c4c9d500e50ce0085c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2163518388493940508, guid: bda857c74ab263c4c9d500e50ce0085c, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 82176
