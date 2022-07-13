@@ -93,9 +93,9 @@ MonoBehaviour:
     - -0.45
     _bodies:
     - serializedVersion: 2
-      x: 0.0009765625
+      x: 0.0029296875
       y: 0
-      width: 0.99902344
+      width: 0.9951172
       height: 0.13671875
     _bodyWeights: []
     _yOffsetPercent: 0.1
