@@ -16,8 +16,9 @@ MonoBehaviour:
   NPC_Name: NPC02
   dialogue:
   - ...........
-  - Ya know, I never expect to see another living creature here..
-  - If could, would you help me keep an eye out for a red whale?
-  - He's my brother, if you see him please tell him I'm alive
-  - let him not worry. I'm safe.
-  - That old guy, he has almost lost his mobility. But he promised to save me.
+  - "\u4F60\u61C2\u7684...\u6211\u5DF2\u7ECF\u4E0D\u671F\u671B\u518D\u770B\u5230\u6D3B\u7684\u4E1C\u897F\u4E86"
+  - "\u5982\u679C\u53EF\u4EE5\u7684\u8BDD\uFF0C\u80FD\u5E2E\u6211\u7559\u610F\u4E00\u4E0B\u5916\u9762\u6709\u6CA1\u6709\u65AD\u5C3E\u9CB8\u517D\u5417\uFF1F"
+  - "\u662F\u6211\u7684\u54E5\u54E5\uFF0C\u4ED6\u628A\u6211\u85CF\u5728\u8FD9\u513F\u7684\u65F6\u5019\u5DEE\u70B9\u513F\u88AB\u4EBA\u780D\u6B7B..."
+  - "\u5982\u679C\u89C1\u5230\u4ED6\uFF0C\u9EBB\u70E6\u544A\u8BC9\u4ED6\u6211\u8FD8\u5728\u8FD9\u513F\uFF0C\u5F88\u5B89\u5168\u3002"
+  - "\u4ED6\u5E94\u8BE5\u5728\u56DE\u6765\u6551\u6211\u7684\u8DEF\u4E0A\uFF0C\u867D\u7136...\u6CA1\u4EC0\u4E48\u884C\u52A8\u80FD\u529B..."
+  - "\u53BB\u5427\u3002"

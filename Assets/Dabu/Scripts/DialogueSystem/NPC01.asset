@@ -15,9 +15,10 @@ MonoBehaviour:
   NPC_Image: {fileID: 0}
   NPC_Name: 01
   dialogue:
-  - What the...
-  - I thought everybody was gone.
-  - I mean, didn't survive.
-  - Wait, you're not going to jump out of here, are you?
-  - All my brothers, died falling off here.
-  - Other way out? Hah, if I could find it, I wouldn't be standing here
+  - "\u963F\u8FD9...."
+  - "\u6211\u4EE5\u4E3A\u5927\u5BB6\u90FD\u4E0D\u5728\u4E86...."
+  - "\u6211\u662F\u8BF4\uFF0C\u90FD\u6B7B\u4E86\u3002"
+  - "\u7B49\u7B49\uFF0C\u4F60\u4E0D\u4F1A\u662F\u60F3\u4ECE\u8FD9\u91CC\u8DF3\u4E0B\u53BB\u5427\uFF1F"
+  - "\u6211\u7684\u5F1F\u5144\u4EEC\u90FD\u6B7B\u5728\u4E86\u4E0B\u9762\u3002"
+  - "\u522B\u7684\u51FA\u8DEF\uFF1F\u54C8\uFF0C\u5982\u679C\u80FD\u627E\u5230\uFF0C\u6211\u4E5F\u4E0D\u4F1A\u7AD9\u5728\u8FD9\u91CC\u3002"
+  - "\u795D\u4F60\u597D\u8FD0\u3002"
